@@ -24,10 +24,9 @@ export const SEMESTERS = [
 ];
 
 export const REACTIONS = [
-  { emoji: '😂', label: 'Funny' },
+  { emoji: '❤️', label: 'Love' },
+  { emoji: '💩', label: 'Crap' },
   { emoji: '💀', label: 'Dead' },
-  { emoji: '😭', label: 'Crying' },
-  { emoji: '🔥', label: 'Fire' },
 ];
 
 export const RANT_STATUSES = [
