@@ -2,6 +2,7 @@ import React from 'react';
 import { MessageSquare, Eye } from 'lucide-react';
 import { REACTIONS } from '../../utils/constants';
 import { formatCount } from '../../utils/helpers';
+import ReactionIcon from '../common/ReactionIcon';
 
 const ReactionBar = ({
   reactions = { counts: {}, total: 0, userReaction: null },
@@ -52,7 +53,11 @@ const ReactionBar = ({
               }`}
               title={`${label} (${count})`}
             >
-              <span className="text-sm leading-none">{emoji}</span>
+              <ReactionIcon
+                emoji={emoji}
+                isSelected={isSelected}
+                className="w-3.5 h-3.5 shrink-0"
+              />
               {count > 0 && (
                 <span className="tabular-nums font-semibold">{formatCount(count)}</span>
               )}
