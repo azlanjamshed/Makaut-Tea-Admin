@@ -1,0 +1,153 @@
+/* ==========================================================================
+   RANTEA ADMIN DESIGN SYSTEM - CENTRAL THEME SPECIFICATION
+   SlothUI Clean & Light Modern Flat Palette
+   
+   HOW TO CUSTOMIZE:
+   Simply change any color code below! All admin pages, sidebar, tables,
+   cards, inputs, badges, and hover states will instantly update across
+   the entire admin panel.
+   ========================================================================== */
+
+:root {
+  /* ──────────────────────────────────────────────────────────────────────────
+     1. BRAND & PRIMARY ACCENT (SlothUI Vibrant Purple / Indigo)
+     ────────────────────────────────────────────────────────────────────────── */
+  --color-primary: #4F3DE6;
+  --color-primary-rgb: 79, 61, 230;
+
+  /* Aliases for universal compatibility across components */
+  --primary-color: #4F3DE6;
+  --primary-color-rgb: 79, 61, 230;
+  --primary-color-hover: #4332D1;
+  --primary-color-hover-rgb: 67, 50, 209;
+  --primary-color-active: #3827BA;
+  --primary-color-active-rgb: 56, 39, 186;
+  --primary-color-light: #EEF0FE;
+  --primary-color-light-rgb: 238, 240, 254;
+
+  --color-primary-hover: #4332D1;
+  --color-primary-hover-rgb: 67, 50, 209;
+
+  --color-primary-active: #3827BA;
+  --color-primary-active-rgb: 56, 39, 186;
+
+  --color-primary-light: #EEF0FE;
+  --color-primary-light-rgb: 238, 240, 254;
+
+  --color-primary-text: #FFFFFF;
+
+  --color-accent: #6366F1;
+  --color-accent-rgb: 99, 102, 241;
+  --color-accent-hover: #4F46E5;
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     2. PAGE & SURFACE BACKGROUNDS (Light, Fresh & Clean)
+     ────────────────────────────────────────────────────────────────────────── */
+  --bg-page: #F4F6FC;                   /* Main viewport & body background */
+  --bg-page-rgb: 244, 246, 252;
+
+  --bg-card: #FFFFFF;                   /* Admin tables, metric cards, modals */
+  --bg-card-rgb: 255, 255, 255;
+
+  --bg-card-hover: #F9FAFD;             /* Hover background for cards & rows */
+  --bg-card-hover-rgb: 249, 250, 253;
+
+  --bg-surface: #FFFFFF;                /* Surface headers, dropdowns, popovers */
+  --bg-surface-rgb: 255, 255, 255;
+
+  --bg-subtle: #EEF2F7;                 /* Filter pills, secondary tags, code blocks */
+  --bg-subtle-rgb: 238, 242, 247;
+
+  --bg-input: #FFFFFF;                  /* Form inputs */
+  --bg-input-focus: #FFFFFF;
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     3. ADMIN SIDEBAR (SlothUI Rich Purple Panel)
+     ────────────────────────────────────────────────────────────────────────── */
+  --bg-sidebar: #4F3DE6;
+  --bg-sidebar-rgb: 79, 61, 230;
+
+  --bg-sidebar-hover: #4332D1;
+  --bg-sidebar-hover-rgb: 67, 50, 209;
+
+  --bg-sidebar-active: #3C29CA;
+  --bg-sidebar-active-rgb: 60, 41, 202;
+
+  --text-sidebar: #FFFFFF;
+  --text-sidebar-muted: #C7D2FE;
+  --border-sidebar: rgba(255, 255, 255, 0.15);
+  --badge-sidebar-bg: #FFFFFF;
+  --badge-sidebar-text: #4F3DE6;
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     4. TYPOGRAPHY & TEXT COLORS
+     ────────────────────────────────────────────────────────────────────────── */
+  --text-main: #111827;                 /* Headings, table cells, user names */
+  --text-main-rgb: 17, 24, 39;
+
+  --text-secondary: #4B5563;            /* Body text, descriptions */
+  --text-secondary-rgb: 75, 85, 99;
+
+  --text-muted: #6B7280;                /* Meta info, timestamps, secondary labels */
+  --text-muted-rgb: 107, 114, 128;
+
+  --text-placeholder: #9CA3AF;          /* Input field placeholders */
+  --text-placeholder-rgb: 156, 163, 175;
+
+  --text-inverted: #FFFFFF;
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     5. BORDERS & DIVIDERS
+     ────────────────────────────────────────────────────────────────────────── */
+  --border-color: #E5E7EB;              /* Crisp 1px card and divider borders */
+  --border-color-rgb: 229, 231, 235;
+
+  --border-subtle: #F3F4F6;
+  --border-hover: #CBD5E1;
+  --border-focus: #4F3DE6;
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     6. SEMANTIC / STATUS COLORS (Roadmap & Moderation)
+     ────────────────────────────────────────────────────────────────────────── */
+  --status-active: #059669;
+  --status-active-bg: #ECFDF5;
+  --status-active-border: #A7F3D0;
+
+  --status-pending: #D97706;
+  --status-pending-bg: #FFFBEB;
+  --status-pending-border: #FDE68A;
+
+  --status-investigating: #2563EB;
+  --status-investigating-bg: #EFF6FF;
+  --status-investigating-border: #BFDBFE;
+
+  --status-resolved: #059669;
+  --status-resolved-bg: #ECFDF5;
+  --status-resolved-border: #A7F3D0;
+
+  --status-rejected: #4B5563;
+  --status-rejected-bg: #F3F4F6;
+  --status-rejected-border: #E5E7EB;
+
+  --status-hidden: #D97706;
+  --status-hidden-bg: #FFFBEB;
+  --status-hidden-border: #FDE68A;
+
+  --status-deleted: #DC2626;
+  --status-deleted-bg: #FEF2F2;
+  --status-deleted-border: #FECACA;
+
+  --status-suspended: #D97706;
+  --status-suspended-bg: #FFFBEB;
+  --status-suspended-border: #FDE68A;
+
+  --status-banned: #DC2626;
+  --status-banned-bg: #FEF2F2;
+  --status-banned-border: #FECACA;
+
+  /* Reaction Emojis */
+  --reaction-laugh: #F59E0B;
+  --reaction-skull: #8B5CF6;
+  --reaction-cry: #06B6D4;
+  --reaction-fire: #F97316;
+}
