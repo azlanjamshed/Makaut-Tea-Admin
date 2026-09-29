@@ -1,16 +1,14 @@
 export const DEPARTMENTS = [
   "All",
-  "CSE",
-  "IT",
-  "ECE",
-  "EE",
-  "ME",
-  "CE",
-  "BCA",
-  "MCA",
-  "BBA",
-  "Administration",
-  "General",
+  "Computer Science and Engineering (CSE)",
+  "Information Technology (IT)",
+  "Forensic",
+  "Bio Informatic",
+  "LLB",
+  "VLSI",
+  "MTech",
+  "Biotech Building",
+  "Other",
 ];
 
 export const SEMESTERS = [
