@@ -25,7 +25,7 @@ export const SEMESTERS = [
 
 export const REACTIONS = [
   { emoji: '❤️', label: 'Love' },
-  { emoji: '💩', label: 'Crap' },
+  { emoji: '👎', label: 'Dislike' },
   { emoji: '💀', label: 'Dead' },
 ];
 
