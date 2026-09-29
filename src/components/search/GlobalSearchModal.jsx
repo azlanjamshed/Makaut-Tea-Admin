@@ -91,8 +91,8 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
             <span className="text-xs font-medium">Searching across database...</span>
           </div>
         ) : query.trim().length >= 2 && !hasResults ? (
-          <div className="text-center py-10 text-slate-400 space-y-1">
-            <span className="text-2xl block">🔍</span>
+          <div className="text-center py-10 text-slate-400 space-y-2">
+            <Search className="w-8 h-8 text-slate-300 mx-auto" />
             <p className="text-sm font-bold text-slate-700">Nothing matched your search</p>
             <p className="text-xs text-slate-400">Try searching for keywords, usernames, emails, or departments.</p>
           </div>

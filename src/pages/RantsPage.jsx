@@ -164,7 +164,7 @@ const RantsPage = () => {
     setIsProcessing(true);
     try {
       await rantsApi.unhidePost(unhideTarget._id || unhideTarget.id);
-      showToast('Rant is now visible to public! 👁️', 'success');
+      showToast('Rant is now visible to public!', 'success');
       setUnhideTarget(null);
       if (selectedRant && (selectedRant._id === unhideTarget._id || selectedRant.id === unhideTarget.id)) {
         setSelectedRant(null);

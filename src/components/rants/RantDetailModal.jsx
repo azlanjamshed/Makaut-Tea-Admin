@@ -5,7 +5,7 @@ import StatusBadge from '../common/StatusBadge';
 import ImageLightbox from '../common/ImageLightbox';
 import ReactionBar from './ReactionBar';
 import AdminCommentSection from './AdminCommentSection';
-import { Eye, EyeOff, Trash2, RotateCcw, MessageSquare, Flame, AlertTriangle, Calendar, Building2, User, ShieldCheck, ZoomIn } from 'lucide-react';
+import { Eye, EyeOff, Trash2, RotateCcw, MessageSquare, Flame, AlertTriangle, Calendar, Building2, User, ShieldCheck, ZoomIn, VenetianMask } from 'lucide-react';
 import { formatDateTime, resolveImageUrl, getRantStatus } from '../../utils/helpers';
 import * as rantsApi from '../../api/rants';
 
@@ -32,7 +32,7 @@ const RantDetailModal = ({
   );
 
   const authorName = isOfficial
-    ? (postData.user?.name || 'Head of MAKAU-TEA Affairs 📢')
+    ? (postData.user?.name || 'Head of MAKAU-TEA Affairs')
     : postData.isAnonymous
     ? postData.user?.anonymousUsername || 'Anonymous Student'
     : postData.user?.name || 'Student';
@@ -112,7 +112,7 @@ const RantDetailModal = ({
         <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-[var(--border-color)]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-white border border-[var(--border-color)] flex items-center justify-center text-sm font-bold text-slate-700 shadow-2xs">
-              {isOfficial ? <ShieldCheck className="w-5 h-5 text-[var(--color-primary)]" /> : rant.isAnonymous ? '🎭' : authorName.charAt(0)}
+              {isOfficial ? <ShieldCheck className="w-5 h-5 text-[var(--color-primary)]" /> : rant.isAnonymous ? <VenetianMask className="w-5 h-5 text-purple-700" /> : authorName.charAt(0)}
             </div>
             <div>
               <div className="flex items-center gap-2">

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from '../common/Card';
 import StatusBadge from '../common/StatusBadge';
-import { AlertTriangle, ArrowRight } from 'lucide-react';
+import { AlertTriangle, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { timeAgo } from '../../utils/helpers';
 
 const RecentReportsWidget = ({ reports = [], onSelectReport }) => {
@@ -23,7 +23,7 @@ const RecentReportsWidget = ({ reports = [], onSelectReport }) => {
 
         {reports.length === 0 ? (
           <div className="text-center py-8 text-slate-500 text-xs flex flex-col items-center gap-1.5">
-            <span className="text-xl">✅</span>
+            <CheckCircle2 className="w-6 h-6 text-emerald-600 mb-1" />
             <span className="font-semibold text-slate-800">No pending reports</span>
             <span className="text-[11px] text-slate-500">The platform feed is clean!</span>
           </div>

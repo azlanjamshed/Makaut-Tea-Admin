@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../common/Card';
 import StatusBadge from '../common/StatusBadge';
 import Button from '../common/Button';
-import { Eye, ShieldBan, ShieldCheck, UserX } from 'lucide-react';
+import { Eye, ShieldBan, ShieldCheck, UserX, FileText, MessageSquare, Flame } from 'lucide-react';
 
 const UserCardMobile = ({
   user,
@@ -45,9 +45,18 @@ const UserCardMobile = ({
           {user.department || 'General'}
         </span>
         <div className="flex items-center gap-3 tabular-nums font-medium text-slate-700">
-          <span>📝 {user.rantsCount || user.stats?.rants || 0}</span>
-          <span>💬 {user.commentsCount || user.stats?.comments || 0}</span>
-          <span>🔥 {user.reactionsCount || user.stats?.reactions || 0}</span>
+          <span className="inline-flex items-center gap-1">
+            <FileText className="w-3 h-3 text-slate-400" />
+            {user.rantsCount || user.stats?.rants || 0}
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <MessageSquare className="w-3 h-3 text-slate-400" />
+            {user.commentsCount || user.stats?.comments || 0}
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <Flame className="w-3 h-3 text-amber-500" />
+            {user.reactionsCount || user.stats?.reactions || 0}
+          </span>
         </div>
       </div>
 

@@ -18,6 +18,7 @@ import {
   User as UserIcon,
   X,
   Sparkles,
+  Paperclip,
 } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 import * as feedbackApi from '../api/feedback';
@@ -154,8 +155,8 @@ const FeedbackPage = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black text-slate-900 font-display flex items-center gap-2.5">
-            <span className="p-2 rounded-xl bg-purple-50 border border-purple-200 text-purple-600">
-              💡
+            <span className="p-2 rounded-xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center">
+              <Lightbulb className="w-5 h-5" />
             </span>
             <span>Student Feedback & Suggestions</span>
           </h1>
@@ -201,25 +202,29 @@ const FeedbackPage = () => {
           <div className="flex bg-slate-100 p-1 rounded-xl border border-[var(--border-color)]">
             {[
               { id: 'all', label: 'All Types' },
-              { id: 'suggestion', label: '💡 Suggestions' },
-              { id: 'bug', label: '🐛 Bugs' },
-              { id: 'general', label: '💬 General' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => {
-                  setSelectedType(tab.id);
-                  setPage(1);
-                }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  selectedType === tab.id
-                    ? 'bg-[var(--color-primary)] text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+              { id: 'suggestion', label: 'Suggestions', icon: Lightbulb },
+              { id: 'bug', label: 'Bugs', icon: Bug },
+              { id: 'general', label: 'General', icon: MessageSquare },
+            ].map((tab) => {
+              const TabIcon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    setSelectedType(tab.id);
+                    setPage(1);
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer inline-flex items-center gap-1.5 ${
+                    selectedType === tab.id
+                      ? 'bg-[var(--color-primary)] text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                  }`}
+                >
+                  {TabIcon && <TabIcon className="w-3.5 h-3.5" />}
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Status select */}
@@ -311,7 +316,7 @@ const FeedbackPage = () => {
                   {/* Attachment indicator if present */}
                   {item.screenshotUrl && (
                     <div className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-[var(--border-color)] text-xs text-slate-600">
-                      <span className="text-sm">📎</span>
+                      <Paperclip className="w-3.5 h-3.5 text-slate-500" />
                       <span className="truncate text-[11px] font-medium">Screenshot attached</span>
                     </div>
                   )}
@@ -378,8 +383,14 @@ const FeedbackPage = () => {
             {/* Modal Header */}
             <div className="flex items-center justify-between p-5 border-b border-[var(--border-color)] bg-slate-50">
               <div className="flex items-center gap-3">
-                <span className="text-xl">
-                  {selectedItem.type === 'suggestion' ? '💡' : selectedItem.type === 'bug' ? '🐛' : '💬'}
+                <span className="p-2 rounded-xl bg-white border border-[var(--border-color)] flex items-center justify-center">
+                  {selectedItem.type === 'suggestion' ? (
+                    <Lightbulb className="w-5 h-5 text-amber-500" />
+                  ) : selectedItem.type === 'bug' ? (
+                    <Bug className="w-5 h-5 text-rose-500" />
+                  ) : (
+                    <MessageSquare className="w-5 h-5 text-indigo-500" />
+                  )}
                 </span>
                 <div>
                   <h2 className="text-base font-bold text-slate-900 font-display">

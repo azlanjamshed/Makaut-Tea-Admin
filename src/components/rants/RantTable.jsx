@@ -36,7 +36,7 @@ const RantTable = ({
               rant.isOfficial || rant.isAdminPost || rant.user?.role === 'admin'
             );
             const author = isOfficial
-              ? (rant.user?.name || 'Head of MAKAU-TEA Affairs 📢')
+              ? (rant.user?.name || 'Head of MAKAU-TEA Affairs')
               : rant.isAnonymous
               ? rant.user?.anonymousUsername || 'Anonymous'
               : rant.user?.name || 'Student';

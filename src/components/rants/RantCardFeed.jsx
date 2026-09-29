@@ -4,7 +4,7 @@ import RantActionMenu from './RantActionMenu';
 import ReactionBar from './ReactionBar';
 import AdminCommentSection from './AdminCommentSection';
 import ImageLightbox from '../common/ImageLightbox';
-import { Building2, ShieldCheck, AlertTriangle, ZoomIn } from 'lucide-react';
+import { Building2, ShieldCheck, AlertTriangle, ZoomIn, VenetianMask } from 'lucide-react';
 import { timeAgo, resolveImageUrl, getRantStatus } from '../../utils/helpers';
 import * as rantsApi from '../../api/rants';
 import { useToast } from '../../context/ToastContext';
@@ -27,7 +27,7 @@ const RantCardFeed = ({
   );
 
   const authorName = isOfficial
-    ? (postData.user?.name || 'Head of MAKAU-TEA Affairs 📢')
+    ? (postData.user?.name || 'Head of MAKAU-TEA Affairs')
     : postData.isAnonymous
     ? postData.user?.anonymousUsername || 'Anonymous Student'
     : postData.user?.name || 'Student';
@@ -107,7 +107,7 @@ const RantCardFeed = ({
               ) : isOfficial ? (
                 <ShieldCheck className="w-5 h-5 text-[var(--color-primary)]" />
               ) : postData.isAnonymous ? (
-                '🎭'
+                <VenetianMask className="w-4 h-4 text-purple-700" />
               ) : (
                 authorName.charAt(0)
               )}
@@ -134,7 +134,7 @@ const RantCardFeed = ({
               {(postData.semester || postData.department) && (
                 <>
                   <span className="font-medium truncate max-w-[160px] text-slate-600">
-                    {isOfficial ? `📢 ${postData.semester || postData.department}` : (postData.semester || postData.department)}
+                    {postData.semester || postData.department}
                   </span>
                   <span>·</span>
                 </>

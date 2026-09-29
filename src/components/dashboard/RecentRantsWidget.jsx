@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from '../common/Card';
 import StatusBadge from '../common/StatusBadge';
-import { FileText, ArrowRight } from 'lucide-react';
+import { FileText, ArrowRight, Flame, MessageSquare, Eye } from 'lucide-react';
 import { timeAgo, truncateText, getRantStatus } from '../../utils/helpers';
 
 const RecentRantsWidget = ({ rants = [], onSelectRant }) => {
@@ -55,9 +55,18 @@ const RecentRantsWidget = ({ rants = [], onSelectRant }) => {
                     </p>
 
                     <div className="flex items-center gap-3 text-[10px] text-slate-500 pt-0.5">
-                      <span>🔥 {rant.reactions?.total || rant.reactions?.length || rant.reactionCount || 0}</span>
-                      <span>💬 {rant.commentsCount || 0}</span>
-                      <span>👁 {rant.views || 0}</span>
+                      <span className="inline-flex items-center gap-1">
+                        <Flame className="w-3 h-3 text-orange-500" />
+                        <span>{rant.reactions?.total || rant.reactions?.length || rant.reactionCount || 0}</span>
+                      </span>
+                      <span className="inline-flex items-center gap-1">
+                        <MessageSquare className="w-3 h-3 text-slate-400" />
+                        <span>{rant.commentsCount || 0}</span>
+                      </span>
+                      <span className="inline-flex items-center gap-1">
+                        <Eye className="w-3 h-3 text-slate-400" />
+                        <span>{rant.views || 0}</span>
+                      </span>
                     </div>
                   </div>
 

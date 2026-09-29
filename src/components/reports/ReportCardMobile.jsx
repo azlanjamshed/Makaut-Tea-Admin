@@ -30,7 +30,10 @@ const ReportCardMobile = ({
             className="inline-flex items-center gap-1 text-xs font-mono font-bold text-slate-900 hover:text-[var(--color-primary)] transition-colors cursor-pointer"
             title="Open reported target"
           >
-            <span>🚨 #{String(targetId || '').substring(0, 8)}</span>
+            <span className="inline-flex items-center gap-1 text-rose-600">
+              <ShieldAlert className="w-3.5 h-3.5" />
+              <span>#{String(targetId || '').substring(0, 8)}</span>
+            </span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
           </button>
           <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-700 uppercase font-mono font-bold">

@@ -3,7 +3,7 @@ import Card from '../common/Card';
 import StatusBadge from '../common/StatusBadge';
 import Button from '../common/Button';
 import RantActionMenu from './RantActionMenu';
-import { Eye, Image, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Eye, Image, AlertTriangle, ShieldCheck, Flame, MessageSquare } from 'lucide-react';
 import { timeAgo, getRantStatus } from '../../utils/helpers';
 
 const RantCardMobile = ({
@@ -19,7 +19,7 @@ const RantCardMobile = ({
     rant.isOfficial || rant.isAdminPost || rant.user?.role === 'admin'
   );
   const author = isOfficial
-    ? (rant.user?.name || 'Head of MAKAU-TEA Affairs 📢')
+    ? (rant.user?.name || 'Head of MAKAU-TEA Affairs')
     : rant.isAnonymous
     ? rant.user?.anonymousUsername || 'Anonymous'
     : rant.user?.name || 'Student';
@@ -68,9 +68,18 @@ const RantCardMobile = ({
 
       {/* Stats Counter Bar */}
       <div className="flex items-center gap-4 text-xs text-slate-500 pt-2 border-t border-[var(--border-color)]">
-        <span>🔥 {rant.reactions?.length || rant.reactionCount || 0}</span>
-        <span>💬 {rant.commentsCount || 0}</span>
-        <span>👁 {rant.views || 0}</span>
+        <span className="inline-flex items-center gap-1">
+          <Flame className="w-3.5 h-3.5 text-orange-500" />
+          <span>{rant.reactions?.length || rant.reactionCount || 0}</span>
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <MessageSquare className="w-3.5 h-3.5 text-slate-400" />
+          <span>{rant.commentsCount || 0}</span>
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <Eye className="w-3.5 h-3.5 text-slate-400" />
+          <span>{rant.views || 0}</span>
+        </span>
       </div>
 
       {/* Action Buttons */}
