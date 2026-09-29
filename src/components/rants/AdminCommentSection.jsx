@@ -49,7 +49,7 @@ const AdminCommentSection = ({ postId, onCommentCountChange }) => {
       if (res.success && res.data) {
         setComments((prev) => [res.data, ...prev]);
         setNewCommentText('');
-        showToast('Comment posted as Head of Rant Affairs 📢', 'success');
+        showToast('Comment posted as Head of MAKAU-TEA Affairs 📢', 'success');
         onCommentCountChange?.(comments.length + 1);
       }
     } catch (err) {
@@ -85,7 +85,7 @@ const AdminCommentSection = ({ postId, onCommentCountChange }) => {
         );
         setReplyText('');
         setReplyingToId(null);
-        showToast('Reply posted as Head of Rant Affairs 📢', 'success');
+        showToast('Reply posted as Head of MAKAU-TEA Affairs 📢', 'success');
       }
     } catch (err) {
       showToast(err.message || 'Failed to post reply', 'error');
@@ -133,7 +133,7 @@ const AdminCommentSection = ({ postId, onCommentCountChange }) => {
         <div className="flex items-center justify-between text-xs text-slate-500">
           <span className="flex items-center gap-1.5 font-semibold text-[var(--color-primary)]">
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Posting as Head of Rant Affairs 📢</span>
+            <span>Posting as Head of MAKAU-TEA Affairs 📢</span>
           </span>
           <span>{comments.length} {comments.length === 1 ? 'comment' : 'comments'}</span>
         </div>
@@ -180,7 +180,7 @@ const AdminCommentSection = ({ postId, onCommentCountChange }) => {
               comment.user?.role === 'admin'
             );
             const authorName = isAdminComment
-              ? (comment.user?.name || 'Head of Rant Affairs 📢')
+              ? (comment.user?.name || 'Head of MAKAU-TEA Affairs 📢')
               : comment.isAnonymous
               ? comment.user?.anonymousUsername || 'Anonymous Student'
               : comment.user?.name || 'Student';
@@ -249,7 +249,7 @@ const AdminCommentSection = ({ postId, onCommentCountChange }) => {
                       type="text"
                       value={replyText}
                       onChange={(e) => setReplyText(e.target.value)}
-                      placeholder={`Reply to ${authorName} as Head of Rant Affairs 📢...`}
+                      placeholder={`Reply to ${authorName} as Head of MAKAU-TEA Affairs 📢...`}
                       className="flex-1 bg-white border border-[var(--border-color)] rounded-xl px-3 py-1.5 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[var(--color-primary)]"
                       autoFocus
                     />
@@ -287,7 +287,7 @@ const AdminCommentSection = ({ postId, onCommentCountChange }) => {
                         reply.user?.role === 'admin'
                       );
                       const replyAuthorName = isReplyAdmin
-                        ? (reply.user?.name || 'Head of Rant Affairs 📢')
+                        ? (reply.user?.name || 'Head of MAKAU-TEA Affairs 📢')
                         : reply.isAnonymous
                         ? reply.user?.anonymousUsername || 'Anonymous Student'
                         : reply.user?.name || 'Student';

@@ -27,7 +27,7 @@ const RantCardFeed = ({
   );
 
   const authorName = isOfficial
-    ? (postData.user?.name || 'Head of Rant Affairs 📢')
+    ? (postData.user?.name || 'Head of MAKAU-TEA Affairs 📢')
     : postData.isAnonymous
     ? postData.user?.anonymousUsername || 'Anonymous Student'
     : postData.user?.name || 'Student';

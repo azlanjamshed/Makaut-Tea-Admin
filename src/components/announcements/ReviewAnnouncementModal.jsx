@@ -282,7 +282,7 @@ const ReviewAnnouncementModal = ({
           <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-3.5">
             <div className="flex items-center gap-2 text-emerald-800 font-bold text-sm">
               <Megaphone className="w-4 h-4 text-emerald-600" />
-              <span>Broadcast as Head of Rant Affairs 📢</span>
+              <span>Broadcast as Head of MAKAU-TEA Affairs 📢</span>
             </div>
             <p className="text-xs text-emerald-700 leading-relaxed">
               Approving will instantly publish an official campus announcement post visible to all students with the verified admin badge.

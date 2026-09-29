@@ -281,7 +281,7 @@ const CreatePostModal = ({ isOpen, onClose, onPostCreated }) => {
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="text-xs font-bold text-slate-900">
-                      Head of Rant Affairs 📢
+                      Head of MAKAU-TEA Affairs 📢
                     </span>
                     <ShieldCheck className="w-3.5 h-3.5 text-[var(--color-primary)]" />
                     <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800">
