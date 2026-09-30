@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useAdminAuth } from '../context/AdminAuthContext';
-import { useToast } from '../context/ToastContext';
-import Input from '../components/common/Input';
-import Button from '../components/common/Button';
-import { ShieldCheck, Mail, Lock, AlertCircle } from 'lucide-react';
-import appLogo from '../assets/logo.png';
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAdminAuth } from "../context/AdminAuthContext";
+import { useToast } from "../context/ToastContext";
+import Input from "../components/common/Input";
+import Button from "../components/common/Button";
+import { ShieldCheck, Mail, Lock, AlertCircle } from "lucide-react";
+import appLogo from "../assets/logo.png";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { login } = useAdminAuth();
   const { showToast } = useToast();
@@ -20,18 +20,18 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage('');
+    setErrorMessage("");
     setIsLoading(true);
 
     try {
       await login({ email: email.trim(), password });
-      showToast('Welcome to Rantea Admin Center', 'success');
-      const from = location.state?.from?.pathname || '/';
+      showToast("Welcome to Rantea Admin Center", "success");
+      const from = location.state?.from?.pathname || "/";
       navigate(from, { replace: true });
     } catch (err) {
-      const msg = err.message || 'Invalid credentials or unauthorized account';
+      const msg = err.message || "Invalid credentials or unauthorized account";
       setErrorMessage(msg);
-      showToast(msg, 'error');
+      showToast(msg, "error");
     } finally {
       setIsLoading(false);
     }
@@ -43,7 +43,11 @@ const LoginPage = () => {
         {/* University Brand Header */}
         <div className="text-center space-y-3">
           <div className="inline-flex w-16 h-16 rounded-2xl overflow-hidden border border-[var(--border-color)] items-center justify-center bg-white shadow-xs">
-            <img src={appLogo} alt="MAKAU-TEA" className="w-full h-full object-cover" />
+            <img
+              src={appLogo}
+              alt="MAKAU-TEA"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div>
             <span className="text-xs font-mono font-bold tracking-widest uppercase text-[var(--color-primary)] block mb-1">
@@ -71,7 +75,7 @@ const LoginPage = () => {
             <Input
               label="Email Address"
               type="email"
-              placeholder="admin@makaut.edu"
+              placeholder="Admin Email"
               icon={Mail}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -83,7 +87,7 @@ const LoginPage = () => {
             <Input
               label="Password"
               isPassword
-              placeholder="••••••••••••"
+              placeholder="Enter Password"
               icon={Lock}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
