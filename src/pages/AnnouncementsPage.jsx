@@ -91,7 +91,14 @@ const AnnouncementsPage = () => {
       if (res.success) {
         setRequests(res.data || []);
         if (res.pagination) {
-          setPagination(res.pagination);
+          setPagination({
+            ...res.pagination,
+            totalPages:
+              res.pagination.totalPages ||
+              res.pagination.pages ||
+              Math.ceil((res.pagination.total || 0) / (res.pagination.limit || 15)) ||
+              1,
+          });
         }
       }
     } catch (err) {

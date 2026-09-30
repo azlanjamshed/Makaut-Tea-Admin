@@ -4,13 +4,18 @@ import Button from './Button';
 
 const Pagination = ({
   currentPage = 1,
-  totalPages = 1,
+  totalPages,
   totalItems,
   pageSize = 10,
   onPageChange,
   className = '',
 }) => {
-  if (totalPages <= 1 && (!totalItems || totalItems <= pageSize)) return null;
+  const effectiveTotalPages = Math.max(
+    Number(totalPages) || 0,
+    totalItems ? Math.ceil(totalItems / pageSize) : 1
+  );
+
+  if (effectiveTotalPages <= 1 && (!totalItems || totalItems <= pageSize)) return null;
 
   const startItem = (currentPage - 1) * pageSize + 1;
   const endItem = totalItems ? Math.min(currentPage * pageSize, totalItems) : currentPage * pageSize;
@@ -29,7 +34,7 @@ const Pagination = ({
         ) : (
           <span>
             Page <strong className="text-slate-900 font-semibold">{currentPage}</strong> of{' '}
-            <strong className="text-slate-900 font-semibold">{totalPages}</strong>
+            <strong className="text-slate-900 font-semibold">{effectiveTotalPages}</strong>
           </span>
         )}
       </div>
@@ -47,13 +52,13 @@ const Pagination = ({
         </Button>
 
         <span className="px-3 py-1 font-semibold text-slate-700 bg-slate-50 rounded-lg border border-[var(--border-color)]">
-          {currentPage} / {totalPages || 1}
+          {currentPage} / {effectiveTotalPages || 1}
         </span>
 
         <Button
           variant="secondary"
           size="sm"
-          disabled={currentPage >= totalPages}
+          disabled={currentPage >= effectiveTotalPages}
           onClick={() => onPageChange?.(currentPage + 1)}
           aria-label="Next page"
         >

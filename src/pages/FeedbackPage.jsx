@@ -77,7 +77,14 @@ const FeedbackPage = () => {
       if (res.success) {
         setFeedbacks(res.data || []);
         if (res.pagination) {
-          setPagination(res.pagination);
+          setPagination({
+            ...res.pagination,
+            totalPages:
+              res.pagination.totalPages ||
+              res.pagination.pages ||
+              Math.ceil((res.pagination.total || 0) / (res.pagination.limit || 12)) ||
+              1,
+          });
         }
       }
     } catch (err) {

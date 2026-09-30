@@ -70,7 +70,14 @@ const RantsPage = () => {
           setRants(fetched);
         }
         if (res.pagination) {
-          setPagination(res.pagination);
+          setPagination({
+            ...res.pagination,
+            totalPages:
+              res.pagination.totalPages ||
+              res.pagination.pages ||
+              Math.ceil((res.pagination.total || 0) / (res.pagination.limit || 10)) ||
+              1,
+          });
         }
         setPage(pageNum);
       }
