@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Modal from '../common/Modal';
 import Button from '../common/Button';
 import StatusBadge from '../common/StatusBadge';
@@ -22,10 +23,16 @@ const RantDetailModal = ({
 
   const [postData, setPostData] = useState(rant);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setPostData(rant);
   }, [rant]);
+
+  const authorId =
+    postData.user?._id ||
+    postData.user?.id ||
+    (typeof postData.user === 'string' ? postData.user : null);
 
   const isOfficial = Boolean(
     postData.isOfficial || postData.isAdminPost || postData.user?.role === 'admin'
@@ -110,13 +117,24 @@ const RantDetailModal = ({
 
         {/* Top Info Bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-[var(--border-color)]">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-white border border-[var(--border-color)] flex items-center justify-center text-sm font-bold text-slate-700 shadow-2xs">
+          <div
+            onClick={() => {
+              if (authorId) {
+                onClose?.();
+                navigate(`/users/${authorId}`);
+              }
+            }}
+            className={`flex items-center gap-3 ${authorId ? 'cursor-pointer group' : ''}`}
+            title={authorId ? `View ${authorName}'s profile` : undefined}
+          >
+            <div className="w-10 h-10 rounded-full bg-white border border-[var(--border-color)] flex items-center justify-center text-sm font-bold text-slate-700 shadow-2xs group-hover:ring-2 group-hover:ring-[var(--color-primary)]/40 group-hover:border-[var(--color-primary)] transition-all">
               {isOfficial ? <ShieldCheck className="w-5 h-5 text-[var(--color-primary)]" /> : rant.isAnonymous ? <VenetianMask className="w-5 h-5 text-purple-700" /> : authorName.charAt(0)}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-slate-900 font-display">
+                <span className={`text-sm font-bold font-display ${
+                  authorId ? 'group-hover:text-[var(--color-primary)] text-slate-900 transition-colors' : 'text-slate-900'
+                }`}>
                   {authorName}
                 </span>
                 {isOfficial ? (

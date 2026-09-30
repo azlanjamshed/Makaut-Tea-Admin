@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import StatusBadge from '../common/StatusBadge';
 import RantActionMenu from './RantActionMenu';
 import ReactionBar from './ReactionBar';
@@ -17,6 +18,7 @@ const RantCardFeed = ({
   onDelete,
   onRestore,
 }) => {
+  const navigate = useNavigate();
   const [postData, setPostData] = useState(rant);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -37,6 +39,18 @@ const RantCardFeed = ({
     : postData.isAnonymous
     ? ''
     : postData.user?.image;
+
+  const authorId =
+    postData.user?._id ||
+    postData.user?.id ||
+    (typeof postData.user === 'string' ? postData.user : null);
+
+  const handleUserClick = (e) => {
+    e.stopPropagation();
+    if (authorId) {
+      navigate(`/users/${authorId}`);
+    }
+  };
 
   const status = getRantStatus(postData);
   const imageSrc = postData.image ? resolveImageUrl(postData.image) : null;
@@ -99,9 +113,15 @@ const RantCardFeed = ({
 
       {/* Top Header: Author + Meta + Actions */}
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3 overflow-hidden">
+        <div
+          onClick={handleUserClick}
+          className={`flex items-center gap-3 overflow-hidden ${
+            authorId ? 'cursor-pointer group' : ''
+          }`}
+          title={authorId ? `View ${authorName}'s profile` : undefined}
+        >
           <div className={isOfficial ? 'p-0.5 rounded-full ring-2 ring-[var(--color-primary)]/40 shrink-0' : 'shrink-0'}>
-            <div className="w-10 h-10 rounded-full bg-slate-100 border border-[var(--border-color)] flex items-center justify-center text-sm font-bold text-slate-700 overflow-hidden shadow-2xs">
+            <div className="w-10 h-10 rounded-full bg-slate-100 border border-[var(--border-color)] flex items-center justify-center text-sm font-bold text-slate-700 overflow-hidden shadow-2xs group-hover:ring-2 group-hover:ring-[var(--color-primary)]/40 group-hover:border-[var(--color-primary)] transition-all">
               {authorImage ? (
                 <img src={authorImage} alt={authorName} className="w-full h-full object-cover" />
               ) : isOfficial ? (
@@ -116,7 +136,9 @@ const RantCardFeed = ({
 
           <div className="flex flex-col overflow-hidden">
             <div className="flex items-center gap-2">
-              <span className={`font-bold text-sm font-display truncate ${isOfficial ? 'text-[var(--color-primary)]' : 'text-slate-900'}`}>
+              <span className={`font-bold text-sm font-display truncate ${
+                isOfficial ? 'text-[var(--color-primary)]' : 'text-slate-900'
+              } ${authorId ? 'group-hover:text-[var(--color-primary)] transition-colors' : ''}`}>
                 {authorName}
               </span>
               {isOfficial ? (
