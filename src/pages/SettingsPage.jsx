@@ -1,33 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import Card from '../components/common/Card';
-import Button from '../components/common/Button';
-import { useToast } from '../context/ToastContext';
-import { Server, ShieldCheck, Database, CheckCircle2, RefreshCw } from 'lucide-react';
-import api from '../api/client';
+import React, { useState, useEffect } from "react";
+import Card from "../components/common/Card";
+import Button from "../components/common/Button";
+import { useToast } from "../context/ToastContext";
+import {
+  Server,
+  ShieldCheck,
+  Database,
+  CheckCircle2,
+  RefreshCw,
+} from "lucide-react";
+import api from "../api/client";
 
 const SettingsPage = () => {
-  const [healthStatus, setHealthStatus] = useState('checking');
+  const [healthStatus, setHealthStatus] = useState("checking");
   const [isChecking, setIsChecking] = useState(false);
   const { showToast } = useToast();
 
+  // const checkHealth = async () => {
+  //   setIsChecking(true);
+  //   try {
+  //     const res = await api.get('/health');
+  //     if (res.success) {
+  //       setHealthStatus('online');
+  //       showToast('Backend API and database are online and healthy', 'success');
+  //     } else {
+  //       setHealthStatus('warning');
+  //     }
+  //   } catch (err) {
+  //     setHealthStatus('offline');
+  //     showToast('Could not reach backend health check', 'error');
+  //   } finally {
+  //     setIsChecking(false);
+  //   }
+  // };
   const checkHealth = async () => {
     setIsChecking(true);
+
     try {
-      const res = await api.get('/health');
-      if (res.success) {
-        setHealthStatus('online');
-        showToast('Backend API and database are online and healthy', 'success');
+      const res = await api.get("/health");
+      console.log("Health response:", res);
+
+      if (res.status === 200 && res.data?.status === "OK") {
+        setHealthStatus("online");
+        showToast("Backend API is online and healthy", "success");
       } else {
-        setHealthStatus('warning');
+        setHealthStatus("warning");
       }
     } catch (err) {
-      setHealthStatus('offline');
-      showToast('Could not reach backend health check', 'error');
+      setHealthStatus("offline");
+      showToast("Could not reach backend health check", "error");
     } finally {
       setIsChecking(false);
     }
   };
-
   useEffect(() => {
     checkHealth();
   }, []);
@@ -49,11 +74,11 @@ const SettingsPage = () => {
           <div className="flex items-center gap-3">
             <div
               className={`w-10 h-10 rounded-2xl flex items-center justify-center border ${
-                healthStatus === 'online'
-                  ? 'bg-emerald-50 text-emerald-600 border-emerald-200'
-                  : healthStatus === 'checking'
-                  ? 'bg-indigo-50 text-[var(--color-primary)] border-indigo-200'
-                  : 'bg-rose-50 text-rose-600 border-rose-200'
+                healthStatus === "online"
+                  ? "bg-emerald-50 text-emerald-600 border-emerald-200"
+                  : healthStatus === "checking"
+                    ? "bg-indigo-50 text-[var(--color-primary)] border-indigo-200"
+                    : "bg-rose-50 text-rose-600 border-rose-200"
               }`}
             >
               <Server className="w-5 h-5" />
@@ -65,11 +90,11 @@ const SettingsPage = () => {
               <span className="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
                 <span
                   className={`w-2 h-2 rounded-full ${
-                    healthStatus === 'online'
-                      ? 'bg-emerald-500'
-                      : healthStatus === 'checking'
-                      ? 'bg-indigo-500 animate-ping'
-                      : 'bg-rose-500'
+                    healthStatus === "online"
+                      ? "bg-emerald-500"
+                      : healthStatus === "checking"
+                        ? "bg-indigo-500 animate-ping"
+                        : "bg-rose-500"
                   }`}
                 />
                 <span className="capitalize font-semibold">{healthStatus}</span>
@@ -100,7 +125,7 @@ const SettingsPage = () => {
                 API Base URL
               </span>
               <span className="text-xs font-mono font-bold text-[var(--color-primary)] mt-1 block">
-                {import.meta.env.VITE_API_URL || '/api'}
+                {import.meta.env.VITE_API_URL || "/api"}
               </span>
             </div>
 
@@ -109,7 +134,7 @@ const SettingsPage = () => {
                 Storage Endpoint
               </span>
               <span className="text-xs font-mono font-bold text-slate-900 mt-1 block truncate">
-                {import.meta.env.VITE_SERVER_URL || 'http://localhost:5001'}
+                {import.meta.env.VITE_SERVER_URL || "http://localhost:5001"}
               </span>
             </div>
           </div>
@@ -122,7 +147,10 @@ const SettingsPage = () => {
             <span>Campus Code of Conduct Moderation Protocol</span>
           </div>
           <p className="text-xs text-slate-600 leading-relaxed">
-            All moderation actions taken through this portal are permanently recorded in the administrative audit logs. Please ensure complaints involving severe harassment, hate speech, or doxxing are documented with proper justification notes.
+            All moderation actions taken through this portal are permanently
+            recorded in the administrative audit logs. Please ensure complaints
+            involving severe harassment, hate speech, or doxxing are documented
+            with proper justification notes.
           </p>
         </div>
       </Card>

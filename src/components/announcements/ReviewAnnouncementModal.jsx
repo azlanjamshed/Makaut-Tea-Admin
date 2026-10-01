@@ -41,7 +41,8 @@ const ReviewAnnouncementModal = ({
   const isApproved = request.status === 'approved';
   const isRejected = request.status === 'rejected';
 
-  const imageSrc = request.image ? resolveImageUrl(request.image) : null;
+  const imageSrc = request.image ? resolveImageUrl(request.image, 'detail') : null;
+  const fullImageSrc = request.image ? resolveImageUrl(request.image, 'full') : imageSrc;
   const applicant = request.user || {};
 
   const handleApprove = async () => {
@@ -136,7 +137,13 @@ const ReviewAnnouncementModal = ({
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center font-bold text-[var(--color-primary)] text-sm overflow-hidden">
               {applicant.image ? (
-                <img src={resolveImageUrl(applicant.image)} alt={applicant.name} className="w-full h-full object-cover" />
+                <img
+                  src={resolveImageUrl(applicant.image, 'avatar')}
+                  alt={applicant.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
               ) : (
                 applicant.name?.charAt(0) || 'S'
               )}
@@ -230,6 +237,8 @@ const ReviewAnnouncementModal = ({
                   <img
                     src={imageSrc}
                     alt="Flyer"
+                    loading="lazy"
+                    decoding="async"
                     className="max-h-72 w-auto h-auto max-w-full object-contain group-hover:scale-[1.01] transition-transform"
                   />
                   <div className="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-xl bg-black/80 border border-white/20 text-white text-[11px] font-semibold flex items-center gap-1.5 shadow-sm">
@@ -240,7 +249,7 @@ const ReviewAnnouncementModal = ({
                   <ImageLightbox
                     isOpen={isLightboxOpen}
                     onClose={() => setIsLightboxOpen(false)}
-                    imageSrc={imageSrc}
+                    imageSrc={fullImageSrc}
                     alt={`Flyer for ${request.title}`}
                     caption={`Attached by ${applicant.name || 'Student'}`}
                   />

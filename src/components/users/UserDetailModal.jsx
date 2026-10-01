@@ -4,7 +4,7 @@ import Modal from '../common/Modal';
 import Button from '../common/Button';
 import StatusBadge from '../common/StatusBadge';
 import { User, Mail, Calendar, Building2, ShieldAlert, ShieldCheck, UserX, ShieldBan, FileText, MessageSquare, Flame, ExternalLink } from 'lucide-react';
-import { formatDateTime } from '../../utils/helpers';
+import { formatDateTime, resolveImageUrl } from '../../utils/helpers';
 
 const UserDetailModal = ({
   isOpen,
@@ -33,7 +33,13 @@ const UserDetailModal = ({
         <div className="p-4 rounded-2xl bg-slate-50 border border-[var(--border-color)] flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
           <div className="w-16 h-16 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center font-bold text-xl text-[var(--color-primary)] shadow-2xs shrink-0">
             {user.image ? (
-              <img src={user.image} alt={user.name} className="w-full h-full object-cover rounded-2xl" />
+              <img
+                src={resolveImageUrl(user.image, 'avatar')}
+                alt={user.name}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover rounded-2xl"
+              />
             ) : (
               <span>{user.name?.charAt(0) || 'U'}</span>
             )}

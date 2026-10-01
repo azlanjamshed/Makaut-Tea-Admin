@@ -46,7 +46,8 @@ const RantDetailModal = ({
 
   const authorEmail = postData.isAnonymous ? 'Identity Hidden' : postData.user?.email || '—';
   const status = getRantStatus(postData);
-  const imageSrc = postData.image ? resolveImageUrl(postData.image) : null;
+  const imageSrc = postData.image ? resolveImageUrl(postData.image, 'detail') : null;
+  const fullImageSrc = postData.image ? resolveImageUrl(postData.image, 'full') : imageSrc;
   const postId = postData._id || postData.id;
 
   const handleReact = async (emoji) => {
@@ -191,6 +192,8 @@ const RantDetailModal = ({
               <img
                 src={imageSrc}
                 alt="Rant attachment"
+                loading="lazy"
+                decoding="async"
                 className="max-h-80 w-auto h-auto max-w-full object-contain transition-transform duration-300 group-hover/img:scale-[1.015]"
               />
               <div className="absolute top-2.5 right-2.5 px-2 py-1 rounded-lg bg-black/70 hover:bg-black/80 text-white text-[11px] flex items-center gap-1.5 transition-colors shadow-sm">
@@ -202,7 +205,7 @@ const RantDetailModal = ({
             <ImageLightbox
               isOpen={isLightboxOpen}
               onClose={() => setIsLightboxOpen(false)}
-              imageSrc={imageSrc}
+              imageSrc={fullImageSrc}
               alt={`Photo by ${authorName}`}
               caption={`Post evidence by ${authorName}`}
             />

@@ -24,10 +24,12 @@ export const SEMESTERS = [
 ];
 
 export const REACTIONS = [
-  { emoji: '❤️', label: 'Love' },
-  { emoji: '👎', label: 'Dislike' },
-  { emoji: '💀', label: 'Dead' },
+  { emoji: '❤️', name: 'love', label: 'Love' },
+  { emoji: '👎', name: 'dislike', label: 'Dislike' },
+  { emoji: '💀', name: 'dead', label: 'Dead' },
 ];
+
+export const ALLOWED_REACTIONS = ['❤️', '👎', '💀'];
 
 export const RANT_STATUSES = [
   { id: "all", label: "All Rants" },

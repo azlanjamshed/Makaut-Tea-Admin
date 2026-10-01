@@ -23,6 +23,7 @@ import {
 import { useToast } from '../context/ToastContext';
 import * as feedbackApi from '../api/feedback';
 import Pagination from '../components/common/Pagination';
+import { resolveImageUrl } from '../utils/helpers';
 import EmptyState from '../components/common/EmptyState';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import { TableSkeleton } from '../components/common/Skeleton';
@@ -470,8 +471,10 @@ const FeedbackPage = () => {
                     className="block group relative overflow-hidden rounded-xl border border-[var(--border-color)] bg-slate-100 max-h-60"
                   >
                     <img
-                      src={selectedItem.screenshotUrl}
+                      src={resolveImageUrl(selectedItem.screenshotUrl, 'detail')}
                       alt="Student attachment"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform"
                     />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-2 text-white text-xs font-semibold transition-opacity">

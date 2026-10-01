@@ -257,8 +257,10 @@ const UserProfilePage = () => {
           <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-indigo-50 border border-indigo-100 flex items-center justify-center font-bold text-3xl text-[var(--color-primary)] shadow-sm shrink-0 overflow-hidden">
             {userData.image ? (
               <img
-                src={resolveImageUrl(userData.image)}
+                src={resolveImageUrl(userData.image, 'avatar')}
                 alt={userData.name}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             ) : (
@@ -476,7 +478,7 @@ const UserProfilePage = () => {
               {userPosts.map((post) => {
                 const isHidden = post.isHidden;
                 const isDeleted = post.isDeleted;
-                const postImage = post.image ? resolveImageUrl(post.image) : null;
+                const postImage = post.image ? resolveImageUrl(post.image, 'thumb') : null;
 
                 return (
                   <div
@@ -507,6 +509,8 @@ const UserProfilePage = () => {
                           <img
                             src={postImage}
                             alt="Post media"
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover"
                           />
                         </div>

@@ -46,24 +46,41 @@ export const truncateText = (text, maxLength = 80) => {
   return `${text.substring(0, maxLength)}...`;
 };
 
-export const resolveImageUrl = (url) => {
+export const resolveImageUrl = (url, preset) => {
   if (!url) return '';
+  let fullUrl = url;
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
-    return url;
+    fullUrl = url;
+  } else {
+    const rawApiUrl = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+    let serverUrl = '';
+    if (rawApiUrl.startsWith('http://') || rawApiUrl.startsWith('https://')) {
+      serverUrl = rawApiUrl.endsWith('/api') ? rawApiUrl.replace(/\/api$/, '') : rawApiUrl;
+    } else if (!rawApiUrl || rawApiUrl === '/api') {
+      serverUrl = import.meta.env.DEV ? 'http://localhost:5001' : '';
+    }
+    fullUrl = url.startsWith('/') ? `${serverUrl}${url}` : `${serverUrl}/${url}`;
   }
-  const rawApiUrl = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
-  // If absolute URL, strip /api if present; if relative or empty, default to origin or dev fallback
-  let serverUrl = '';
-  if (rawApiUrl.startsWith('http://') || rawApiUrl.startsWith('https://')) {
-    serverUrl = rawApiUrl.endsWith('/api') ? rawApiUrl.replace(/\/api$/, '') : rawApiUrl;
-  } else if (!rawApiUrl || rawApiUrl === '/api') {
-    serverUrl = import.meta.env.DEV ? 'http://localhost:5001' : '';
+
+  if (preset && (fullUrl.includes('ik.imagekit.io') || fullUrl.includes('imagekit.io'))) {
+    if (!fullUrl.includes('tr=') && !fullUrl.includes('tr:')) {
+      const presets = {
+        feed: 'w-800,q-80',
+        detail: 'w-1200,q-85',
+        thumb: 'w-400,q-75',
+        avatar: 'w-160,h-160,c-maintain_ratio,q-80',
+        full: 'w-1600,q-85',
+      };
+      const transform = presets[preset] || preset;
+      const separator = fullUrl.includes('?') ? '&' : '?';
+      return `${fullUrl}${separator}tr=${transform}`;
+    }
   }
-  if (url.startsWith('/')) {
-    return `${serverUrl}${url}`;
-  }
-  return `${serverUrl}/${url}`;
+
+  return fullUrl;
 };
+
+export const getOptimizedImageUrl = (url, preset = 'feed') => resolveImageUrl(url, preset);
 
 export const getRantStatus = (rant) => {
   if (!rant) return 'active';

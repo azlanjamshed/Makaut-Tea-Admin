@@ -1,22 +1,28 @@
-import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AdminAuthProvider, useAdminAuth } from './context/AdminAuthContext';
-import { ToastProvider } from './context/ToastContext';
-import { ThemeProvider } from './context/ThemeContext';
-import AdminLayout from './components/layout/AdminLayout';
-import { Loader2 } from 'lucide-react';
+import React, { lazy, Suspense } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
+import { AdminAuthProvider, useAdminAuth } from "./context/AdminAuthContext";
+import { ToastProvider } from "./context/ToastContext";
+import { ThemeProvider } from "./context/ThemeContext";
+import AdminLayout from "./components/layout/AdminLayout";
+import { Loader2 } from "lucide-react";
 
 // Lazy-loaded route components
-const LoginPage = lazy(() => import('./pages/LoginPage'));
-const DashboardPage = lazy(() => import('./pages/DashboardPage'));
-const RantsPage = lazy(() => import('./pages/RantsPage'));
-const ReportsPage = lazy(() => import('./pages/ReportsPage'));
-const UsersPage = lazy(() => import('./pages/UsersPage'));
-const UserProfilePage = lazy(() => import('./pages/UserProfilePage'));
-const AnnouncementsPage = lazy(() => import('./pages/AnnouncementsPage'));
-const FeedbackPage = lazy(() => import('./pages/FeedbackPage'));
-const ProfilePage = lazy(() => import('./pages/ProfilePage'));
-const SettingsPage = lazy(() => import('./pages/SettingsPage'));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const DashboardPage = lazy(() => import("./pages/DashboardPage"));
+const RantsPage = lazy(() => import("./pages/RantsPage"));
+const ReportsPage = lazy(() => import("./pages/ReportsPage"));
+const UsersPage = lazy(() => import("./pages/UsersPage"));
+const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
+const AnnouncementsPage = lazy(() => import("./pages/AnnouncementsPage"));
+const FeedbackPage = lazy(() => import("./pages/FeedbackPage"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 
 const AdminPageLoader = () => (
   <div className="min-h-[40vh] w-full flex flex-col items-center justify-center text-[var(--color-primary)] gap-2.5 font-mono text-xs">

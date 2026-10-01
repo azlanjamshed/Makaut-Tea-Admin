@@ -34,11 +34,12 @@ const RantCardFeed = ({
     ? postData.user?.anonymousUsername || 'Anonymous Student'
     : postData.user?.name || 'Student';
 
-  const authorImage = isOfficial
+  const rawAuthorImage = isOfficial
     ? (postData.user?.image || '/logo.png')
     : postData.isAnonymous
     ? ''
     : postData.user?.image;
+  const authorImage = rawAuthorImage ? resolveImageUrl(rawAuthorImage, 'avatar') : '';
 
   const authorId =
     postData.user?._id ||
@@ -53,7 +54,8 @@ const RantCardFeed = ({
   };
 
   const status = getRantStatus(postData);
-  const imageSrc = postData.image ? resolveImageUrl(postData.image) : null;
+  const imageSrc = postData.image ? resolveImageUrl(postData.image, 'feed') : null;
+  const fullImageSrc = postData.image ? resolveImageUrl(postData.image, 'full') : imageSrc;
   const postId = postData._id || postData.id;
 
   const handleReact = async (emoji) => {
@@ -123,7 +125,13 @@ const RantCardFeed = ({
           <div className={isOfficial ? 'p-0.5 rounded-full ring-2 ring-[var(--color-primary)]/40 shrink-0' : 'shrink-0'}>
             <div className="w-10 h-10 rounded-full bg-slate-100 border border-[var(--border-color)] flex items-center justify-center text-sm font-bold text-slate-700 overflow-hidden shadow-2xs group-hover:ring-2 group-hover:ring-[var(--color-primary)]/40 group-hover:border-[var(--color-primary)] transition-all">
               {authorImage ? (
-                <img src={authorImage} alt={authorName} className="w-full h-full object-cover" />
+                <img
+                  src={authorImage}
+                  alt={authorName}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
               ) : isOfficial ? (
                 <ShieldCheck className="w-5 h-5 text-[var(--color-primary)]" />
               ) : postData.isAnonymous ? (
@@ -198,6 +206,8 @@ const RantCardFeed = ({
           <img
             src={imageSrc}
             alt="Rant attachment"
+            loading="lazy"
+            decoding="async"
             onClick={() => setIsLightboxOpen(true)}
             className="max-h-96 w-auto h-auto max-w-full object-contain cursor-zoom-in hover:scale-[1.01] transition-transform duration-200"
           />
@@ -212,7 +222,7 @@ const RantCardFeed = ({
           <ImageLightbox
             isOpen={isLightboxOpen}
             onClose={() => setIsLightboxOpen(false)}
-            imageSrc={imageSrc}
+            imageSrc={fullImageSrc}
             alt={`Photo by ${authorName}`}
             caption={`Attachment posted by ${authorName}`}
           />
