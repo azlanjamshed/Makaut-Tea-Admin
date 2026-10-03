@@ -42,22 +42,36 @@ const ReportTable = ({
               >
                 {/* Target Identification */}
                 <td className="py-3.5 px-4 font-mono">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onOpenTarget?.(report);
-                    }}
-                    className="inline-flex items-center gap-1.5 font-bold text-slate-900 hover:text-[var(--color-primary)] transition-colors group/target cursor-pointer text-left"
-                    title="Open reported target content"
-                  >
-                    <span>{targetDisplay}</span>
-                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover/target:text-[var(--color-primary)] transition-colors" />
-                  </button>
-                  {report.description && (
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpenTarget?.(report);
+                      }}
+                      className="inline-flex items-center gap-1.5 font-bold text-slate-900 hover:text-[var(--color-primary)] transition-colors group/target cursor-pointer text-left"
+                      title="Open reported target content"
+                    >
+                      <span>{targetDisplay}</span>
+                      <ExternalLink className="w-3 h-3 text-slate-400 group-hover/target:text-[var(--color-primary)] transition-colors" />
+                    </button>
+                    {report.post?.isAnonymous && (
+                      <span className="px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 text-[9px] font-bold font-sans border border-purple-200">
+                        Anonymous
+                      </span>
+                    )}
+                  </div>
+                  {/* Content Preview / Reason Description */}
+                  {(report.description || report.post?.text || report.comment?.text) && (
                     <p className="text-[11px] text-slate-500 font-sans line-clamp-1 mt-0.5">
-                      "{report.description}"
+                      "{report.description || report.post?.text || report.comment?.text}"
                     </p>
+                  )}
+                  {report.post?.user && (
+                    <span className="text-[10px] text-slate-400 font-sans block mt-0.5">
+                      by <strong className="text-slate-600 font-medium">{report.post.user.name || 'Student'}</strong>
+                      {report.post.isAnonymous && report.post.user.anonymousUsername ? ` (@${report.post.user.anonymousUsername})` : ''}
+                    </span>
                   )}
                 </td>
 

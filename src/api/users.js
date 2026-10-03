@@ -21,5 +21,10 @@ export const restoreUser = async (id) => {
 };
 
 export const getUserPosts = async (userId, params = {}) => {
-  return await api.get(`/posts/user/${userId}`, { params });
+  try {
+    const res = await api.get('/admin/posts', { params: { user: userId, limit: 50, ...params } });
+    return res;
+  } catch (err) {
+    return await api.get(`/posts/user/${userId}`, { params });
+  }
 };

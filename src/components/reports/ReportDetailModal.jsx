@@ -97,16 +97,69 @@ const ReportDetailModal = ({
           </div>
 
           {/* Target Content Preview */}
-          {report.post && typeof report.post === 'object' && (
-            <div className="p-3 rounded-xl bg-slate-50 border border-[var(--border-color)] text-xs space-y-1">
-              <span className="font-semibold text-slate-500 text-[10px] uppercase font-mono">
-                Post Text Content:
-              </span>
-              <p className="text-slate-800 line-clamp-2 leading-relaxed">
-                "{report.post.text || report.post.content || 'Post content'}"
-              </p>
+          {report.post && typeof report.post === 'object' ? (
+            <div className="space-y-2">
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-[var(--border-color)] text-xs space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-500 text-[10px] uppercase font-mono">
+                    Post Text Content:
+                  </span>
+                  {report.post.isAnonymous && (
+                    <span className="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 text-[10px] font-bold border border-purple-200">
+                      🎭 Anonymous Rant
+                    </span>
+                  )}
+                </div>
+                <p className="text-slate-800 line-clamp-3 leading-relaxed whitespace-pre-wrap select-text font-medium">
+                  "{report.post.text || report.post.content || 'Post content'}"
+                </p>
+              </div>
+
+              {/* Reported Post Creator Details */}
+              {report.post.user && typeof report.post.user === 'object' && (
+                <div className="p-3 rounded-xl bg-slate-50 border border-[var(--border-color)] text-xs flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 text-[var(--color-primary)] font-bold flex items-center justify-center text-xs shrink-0">
+                      {report.post.user.name?.charAt(0) || 'U'}
+                    </div>
+                    <div className="truncate">
+                      <div className="flex items-center gap-1.5 truncate">
+                        <span className="font-bold text-slate-900 truncate">
+                          {report.post.user.name || 'Student'}
+                        </span>
+                        {report.post.isAnonymous && (
+                          <span className="text-[10px] font-mono text-purple-700 font-bold bg-purple-50 px-1.5 py-0.5 rounded border border-purple-200">
+                            @{report.post.user.anonymousUsername || 'anonymous'}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-slate-400 block truncate">
+                        {report.post.user.email} · {report.post.user.department || 'Campus'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      navigate(`/users/${report.post.user._id || report.post.user.id}`);
+                    }}
+                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white border border-[var(--border-color)] hover:border-slate-300 text-slate-700 text-[11px] font-bold transition-all shrink-0 cursor-pointer shadow-2xs"
+                    title="Open Author Profile"
+                  >
+                    <User className="w-3.5 h-3.5 text-[var(--color-primary)]" />
+                    <span>Author Profile</span>
+                  </button>
+                </div>
+              )}
             </div>
-          )}
+          ) : report.targetType === 'post' ? (
+            <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>Reported post was deleted or removed from database (#{String(targetId || '').substring(0, 8)}).</span>
+            </div>
+          ) : null}
 
           {report.reportedUser && typeof report.reportedUser === 'object' && (
             <div className="p-3 rounded-xl bg-slate-50 border border-[var(--border-color)] text-xs flex items-center gap-2.5">
@@ -121,13 +174,37 @@ const ReportDetailModal = ({
           )}
 
           {report.comment && typeof report.comment === 'object' && (
-            <div className="p-3 rounded-xl bg-slate-50 border border-[var(--border-color)] text-xs space-y-1">
-              <span className="font-semibold text-slate-500 text-[10px] uppercase font-mono">
-                Comment Content:
-              </span>
-              <p className="text-slate-800 line-clamp-2">
-                "{report.comment.text || report.comment.content || 'Comment text'}"
-              </p>
+            <div className="space-y-2">
+              <div className="p-3 rounded-xl bg-slate-50 border border-[var(--border-color)] text-xs space-y-1">
+                <span className="font-semibold text-slate-500 text-[10px] uppercase font-mono">
+                  Comment Content:
+                </span>
+                <p className="text-slate-800 line-clamp-2">
+                  "{report.comment.text || report.comment.content || 'Comment text'}"
+                </p>
+              </div>
+
+              {report.comment.user && typeof report.comment.user === 'object' && (
+                <div className="p-3 rounded-xl bg-slate-50 border border-[var(--border-color)] text-xs flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 truncate">
+                    <div className="w-6 h-6 rounded-full bg-indigo-50 text-[var(--color-primary)] font-bold flex items-center justify-center text-[10px]">
+                      {report.comment.user.name?.charAt(0) || 'U'}
+                    </div>
+                    <span className="font-bold text-slate-900 truncate">{report.comment.user.name}</span>
+                    <span className="text-[10px] text-slate-400 truncate">{report.comment.user.email}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      navigate(`/users/${report.comment.user._id || report.comment.user.id}`);
+                    }}
+                    className="text-[11px] font-bold text-[var(--color-primary)] hover:underline cursor-pointer"
+                  >
+                    View User →
+                  </button>
+                </div>
+              )}
             </div>
           )}
 

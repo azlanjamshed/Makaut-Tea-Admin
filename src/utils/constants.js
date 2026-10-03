@@ -2,6 +2,7 @@ export const DEPARTMENTS = [
   "All",
   "Computer Science and Engineering (CSE)",
   "Information Technology (IT)",
+  "BCA",
   "Forensic",
   "Bio Informatic",
   "LLB",

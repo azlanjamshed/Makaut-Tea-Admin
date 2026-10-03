@@ -12,8 +12,9 @@ export const updateReportStatus = async (id, { status, notes = '' }) => {
   return await api.put(`/admin/reports/${id}/status`, { status, notes });
 };
 
-export const resolveReport = async (id, { actionTaken = 'dismiss', notes = '' }) => {
-  return await api.put(`/admin/reports/${id}/resolve`, { actionTaken, notes });
+export const resolveReport = async (id, { actionTaken = 'dismissed', notes = '' } = {}) => {
+  const finalAction = actionTaken === 'dismiss' ? 'dismissed' : actionTaken;
+  return await api.put(`/admin/reports/${id}/resolve`, { actionTaken: finalAction, notes });
 };
 
 export const rejectReport = async (id, { notes = '' }) => {

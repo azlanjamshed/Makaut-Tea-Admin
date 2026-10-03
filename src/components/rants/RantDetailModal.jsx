@@ -38,13 +38,14 @@ const RantDetailModal = ({
     postData.isOfficial || postData.isAdminPost || postData.user?.role === 'admin'
   );
 
+  const realName = postData.user?.name;
+  const anonUsername = postData.user?.anonymousUsername;
+
   const authorName = isOfficial
     ? (postData.user?.name || 'Head of MAKAU-TEA Affairs')
-    : postData.isAnonymous
-    ? postData.user?.anonymousUsername || 'Anonymous Student'
-    : postData.user?.name || 'Student';
+    : realName || (anonUsername ? `@${anonUsername}` : 'Anonymous Student');
 
-  const authorEmail = postData.isAnonymous ? 'Identity Hidden' : postData.user?.email || '—';
+  const authorEmail = postData.user?.email || (postData.isAnonymous ? 'Email not on file' : '—');
   const status = getRantStatus(postData);
   const imageSrc = postData.image ? resolveImageUrl(postData.image, 'detail') : null;
   const fullImageSrc = postData.image ? resolveImageUrl(postData.image, 'full') : imageSrc;
@@ -143,8 +144,8 @@ const RantDetailModal = ({
                     Administrator
                   </span>
                 ) : rant.isAnonymous ? (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-200 text-slate-700 font-semibold border border-slate-300">
-                    Anonymous
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-bold border border-purple-200">
+                    Anonymous {anonUsername ? `(@${anonUsername})` : ''}
                   </span>
                 ) : null}
               </div>

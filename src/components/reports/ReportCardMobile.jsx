@@ -39,6 +39,11 @@ const ReportCardMobile = ({
           <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-700 uppercase font-mono font-bold">
             {report.targetType || 'post'}
           </span>
+          {report.post?.isAnonymous && (
+            <span className="text-[10px] px-2 py-0.5 rounded bg-purple-50 text-purple-700 font-bold border border-purple-200">
+              Anonymous
+            </span>
+          )}
         </div>
         <StatusBadge status={report.status} />
       </div>
@@ -50,9 +55,9 @@ const ReportCardMobile = ({
             Reason: {report.reason}
           </span>
         </div>
-        {report.description && (
+        {(report.description || report.post?.text || report.comment?.text) && (
           <p className="text-xs text-slate-700 line-clamp-2 leading-relaxed">
-            "{report.description}"
+            "{report.description || report.post?.text || report.comment?.text}"
           </p>
         )}
         <div className="text-[10px] text-slate-400 pt-1">

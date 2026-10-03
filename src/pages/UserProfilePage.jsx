@@ -82,7 +82,16 @@ const UserProfilePage = () => {
     try {
       const res = await usersApi.getUserPosts(id);
       if (res.success && res.data) {
-        setUserPosts(res.data || []);
+        const postsList = Array.isArray(res.data)
+          ? res.data
+          : Array.isArray(res.data?.posts)
+          ? res.data.posts
+          : Array.isArray(res.posts)
+          ? res.posts
+          : [];
+        setUserPosts(postsList);
+      } else if (Array.isArray(res.data)) {
+        setUserPosts(res.data);
       }
     } catch (err) {
       // silently handle posts fetch

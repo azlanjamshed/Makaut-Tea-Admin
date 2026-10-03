@@ -117,7 +117,7 @@ const ReportsPage = () => {
     if (!resolveTarget) return;
     setIsProcessing(true);
     try {
-      if (actionTaken && actionTaken !== 'dismiss') {
+      if (actionTaken && actionTaken !== 'dismiss' && actionTaken !== 'dismissed') {
         // Execute direct action
         await reportsApi.takeReportAction(resolveTarget._id || resolveTarget.id, {
           action: actionTaken,
@@ -127,8 +127,8 @@ const ReportsPage = () => {
         });
       } else {
         await reportsApi.resolveReport(resolveTarget._id || resolveTarget.id, {
-          actionTaken: 'dismiss',
-          notes,
+          actionTaken: 'dismissed',
+          notes: notes || 'Dismissed without moderation penalty',
         });
       }
 
@@ -172,17 +172,23 @@ const ReportsPage = () => {
     }
   };
 
-  const fetchAndOpenPost = async (postId) => {
+  const fetchAndOpenPost = async (postId, fallbackPost = null) => {
     setIsProcessing(true);
     try {
       const res = await rantsApi.getAdminPostById(postId);
       if (res.data) {
         setTargetPost(res.data);
+      } else if (fallbackPost && typeof fallbackPost === 'object') {
+        setTargetPost(fallbackPost);
       } else {
         showToast('Reported post could not be retrieved', 'error');
       }
     } catch (err) {
-      showToast(err.message || 'Failed to fetch reported post', 'error');
+      if (fallbackPost && typeof fallbackPost === 'object') {
+        setTargetPost(fallbackPost);
+      } else {
+        showToast(err.message || 'Reported post could not be retrieved (may have been deleted)', 'error');
+      }
     } finally {
       setIsProcessing(false);
     }
@@ -218,7 +224,7 @@ const ReportsPage = () => {
         report.targetId;
 
       if (postId) {
-        fetchAndOpenPost(postId);
+        fetchAndOpenPost(postId, report.post);
       } else {
         showToast('Reported post reference not found', 'error');
       }
